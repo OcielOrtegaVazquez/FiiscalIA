@@ -4,10 +4,46 @@
 
 * { margin:0; padding:0; box-sizing: border-box; }
 html, body, app-root { height: 100%; }
-body { background: #000; font-family: 'Inter', Arial, sans-serif; -webkit-font-smoothing:antialiased }
+body {
+	background-color: #000;
+	font-family: 'Inter', Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	color: #fff;
+}
 
 .container { width:100%; min-height:100vh; position:relative; overflow:hidden; }
-.background { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0 }
+.background,
+.background-wrap {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	pointer-events: none;
+}
+
+.background {
+	display: block;
+	object-fit: cover;
+	object-position: center center;
+	-webkit-user-select: none;
+}
+
+/* Ensure page content sits above the background image/picture */
+.container > :not(.background):not(.background-wrap) {
+	position: relative;
+	z-index: 1;
+}
+
+/* Mobile tweaks: prefer top alignment on narrow screens to avoid important content being cropped */
+@media (max-width: 768px) {
+	.background { object-position: center top; }
+}
+
+/* High-DPI: if a @2x asset is later provided, browsers can be pointed to it via srcset on the <img> */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	/* keep object-fit behavior; consider providing higher-res image file in future */
+}
 
 /* Simplified floating circles animation for background */
 .floating-circle { position:absolute; border-radius:50%; mix-blend-mode: screen; background: radial-gradient(circle at 30% 30%, rgba(153,255,255,0.9), rgba(153,255,255,0) 60%); opacity:0.12; animation: float 12s ease-in-out infinite; }
