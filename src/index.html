@@ -4,18 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FiscalIA</title>
+    <base href="/FiiscalIA/">
     <!-- Preload background to improve perceived load and avoid FOUC -->
-    <link rel="preload" as="image" href="/assets/img/fondo_fiscalia_1.png" imagesrcset="/assets/img/fondo_fiscalia_1.png 1x, /assets/img/fondo_fiscalia_1@2x.png 2x, /assets/img/fondo_fiscalia_1@3x.png 3x">
-    <link rel="preload" as="image" href="/assets/img/fondo_fiscalia_1.webp" imagesrcset="/assets/img/fondo_fiscalia_1.webp 1x, /assets/img/fondo_fiscalia_1@2x.webp 2x, /assets/img/fondo_fiscalia_1@3x.webp 3x" type="image/webp">
-    <link rel="preload" as="image" href="/assets/img/fondo_fiscalia_landscape_1920x1080.webp" imagesrcset="/assets/img/fondo_fiscalia_landscape_1920x1080.webp 1x, /assets/img/fondo_fiscalia_landscape_3840x2160.webp 2x, /assets/img/fondo_fiscalia_landscape_5760x3240.webp 3x" type="image/webp">
+    <link rel="preload" as="image" href="assets/img/fondo_fiscalia_1.png" imagesrcset="assets/img/fondo_fiscalia_1.png 1x, assets/img/fondo_fiscalia_1@2x.png 2x, assets/img/fondo_fiscalia_1@3x.png 3x">
+    <link rel="preload" as="image" href="assets/img/fondo_fiscalia_1.webp" imagesrcset="assets/img/fondo_fiscalia_1.webp 1x, assets/img/fondo_fiscalia_1@2x.webp 2x, assets/img/fondo_fiscalia_1@3x.webp 3x" type="image/webp">
+    <link rel="preload" as="image" href="assets/img/fondo_fiscalia_landscape_1920x1080.webp" imagesrcset="assets/img/fondo_fiscalia_landscape_1920x1080.webp 1x, assets/img/fondo_fiscalia_landscape_3840x2160.webp 2x, assets/img/fondo_fiscalia_landscape_5760x3240.webp 3x" type="image/webp">
     <style>
       /* Force background on body so it appears even before Angular paints */
       body {
         background-image: image-set(
-          url('/assets/img/fondo_fiscalia_1.webp') 1x,
-          url('/assets/img/fondo_fiscalia_1@2x.webp') 2x,
-          url('/assets/img/fondo_fiscalia_1@3x.webp') 3x,
-          url('/assets/img/fondo_fiscalia_1.png') 1x
+          url('assets/img/fondo_fiscalia_1.webp') 1x,
+          url('assets/img/fondo_fiscalia_1@2x.webp') 2x,
+          url('assets/img/fondo_fiscalia_1@3x.webp') 3x,
+          url('assets/img/fondo_fiscalia_1.png') 1x
         ) !important;
         background-size: cover !important;
         background-position: center center !important;
