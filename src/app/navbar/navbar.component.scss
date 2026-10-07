@@ -1,0 +1,6 @@
+input { display:none; }
+.menu { position: absolute; top: 20px; left: 20px; }
+.btn, .btn-2 { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.btn { background: rgba(255,255,255,0.06); opacity:0; transform: translateY(0); transition: all .4s; }
+input#toggle:checked ~ #show-menu .btn { opacity:1; }
+.btn img { width:28px; height:28px; }
