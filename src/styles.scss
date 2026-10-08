@@ -29,6 +29,22 @@ body {
 	-webkit-user-select: none;
 }
 
+/* Smooth background reveal: fade, slight scale and deblur */
+.background-wrap, .background {
+	opacity: 0;
+	transform: scale(1.03);
+	filter: blur(6px) saturate(.96);
+	transition: opacity 900ms cubic-bezier(.2,.8,.2,1), transform 900ms cubic-bezier(.2,.8,.2,1), filter 900ms cubic-bezier(.2,.8,.2,1);
+	will-change: opacity, transform, filter;
+}
+
+html.is-ready .background-wrap,
+html.is-ready .background {
+	opacity: 1;
+	transform: none;
+	filter: blur(0) saturate(1);
+}
+
 /* Ensure page content sits above the background image/picture */
 .container > :not(.background):not(.background-wrap) {
 	position: relative;
@@ -56,5 +72,50 @@ body {
 /* Accessibility: reduce motion */
 @media (prefers-reduced-motion:reduce) {
 	.floating-circle { animation: none }
+}
+
+/* Entrance transition: subtle, clean, and slightly striking */
+.entrance-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	pointer-events: none;
+	/* start fully opaque to hide abrupt background paint, with a gentle highlight */
+	background: linear-gradient(180deg, rgba(10,12,16,1) 0%, rgba(6,8,10,0.98) 60%), radial-gradient(circle at 30% 28%, rgba(255,255,255,0.06), rgba(255,255,255,0) 40%);
+	backdrop-filter: blur(8px) saturate(1.05);
+	opacity: 1;
+	transform: scale(1);
+	transition: opacity 850ms cubic-bezier(.2,.8,.2,1) 120ms, transform 850ms cubic-bezier(.2,.8,.2,1);
+}
+
+/* Prepare content for reveal */
+.container {
+	transform: translateY(6px) scale(1.01);
+	opacity: 0;
+	transition: transform 900ms cubic-bezier(.2,.8,.2,1), opacity 900ms cubic-bezier(.2,.8,.2,1);
+}
+
+/* Logo / headings staggered reveal */
+.hero .logo,
+.hero h1,
+.hero p,
+.hero .cta-row { opacity: 0; transform: translateY(18px) scale(.995); transition: all 680ms cubic-bezier(.22,.9,.29,1); }
+.hero .logo { transition-delay: 180ms }
+.hero h1 { transition-delay: 320ms }
+.hero p { transition-delay: 420ms }
+.hero .cta-row { transition-delay: 540ms }
+
+/* When JS signals readiness (after load), remove overlay and reveal */
+html.is-ready .entrance-overlay { opacity: 0; transform: scale(1.02); visibility: hidden; transition-delay: 220ms }
+html.is-ready .container { transform: none; opacity: 1; transition-delay: 120ms }
+html.is-ready .hero .logo,
+html.is-ready .hero h1,
+html.is-ready .hero p,
+html.is-ready .hero .cta-row { opacity: 1; transform: none }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.entrance-overlay, .container, .hero .logo, .hero h1, .hero p, .hero .cta-row { transition: none !important; animation: none !important }
+	.entrance-overlay { display: none }
 }
 

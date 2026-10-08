@@ -1,6 +1,4 @@
-<!doctype html>
-<html lang="es">
-  <head>
+<!DOCTYPE html><html lang="es"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FiscalIA</title>
@@ -36,14 +34,13 @@
         display: block !important;
         object-fit: contain !important;
         transform-origin: center center !important;
-        opacity: 1 !important; /* ensure visible immediately */
-        /* animate only scale so image is visible even before load completes */
-        animation: heroScale 700ms cubic-bezier(.2,.9,.2,1) 200ms forwards !important;
+        opacity: 0 !important; /* start hidden, animate in */
+        animation: heroIn 700ms cubic-bezier(.2,.9,.2,1) 200ms forwards !important;
       }
 
-      @keyframes heroScale {
-        from { transform: scale(0.995); }
-        to   { transform: scale(1); }
+      @keyframes heroIn {
+        from { opacity: 0; transform: scale(0.98); }
+        to   { opacity: 1; transform: scale(1); }
       }
       @media (min-width: 1600px) {
         .hero { height: calc(var(--vh) * 100); }
@@ -52,7 +49,7 @@
         .hero img.hero-img { height: calc(var(--vh) * 0.96); }
       }
     </style>
-  </head>
+  <style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap";body{overflow:hidden;background:#212121}*{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}*{margin:0;padding:0;box-sizing:border-box}html,body,app-root{height:100%}body{background-color:#000;font-family:Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased;color:#fff}.entrance-overlay{position:fixed;inset:0;z-index:99999;pointer-events:none;background:linear-gradient(180deg,rgb(10,12,16) 0%,rgba(6,8,10,.98) 60%),radial-gradient(circle at 30% 28%,rgba(255,255,255,.06),rgba(255,255,255,0) 40%);backdrop-filter:blur(8px) saturate(1.05);opacity:1;transform:scale(1);transition:opacity .85s cubic-bezier(.2,.8,.2,1) .12s,transform .85s cubic-bezier(.2,.8,.2,1)}@media (prefers-reduced-motion: reduce){.entrance-overlay{transition:none!important;animation:none!important}.entrance-overlay{display:none}}</style><link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.css"></noscript></head>
   <body>
     <div class="entrance-overlay" aria-hidden="true"></div>
     <!-- Hero background using the logo (img for consistent scaling) -->
@@ -75,12 +72,24 @@
         var src = 'assets/img/logo_black_hi.jpg';
         var img = new Image();
         var done = false;
-        var finish = function(){ if(done) return; done = true; try{ document.documentElement.classList.add('is-ready') }catch(e){} };
+        var finish = function(){
+          if(done) return; done = true;
+          try{
+            // add class for compatibility
+            document.documentElement.classList.add('is-ready');
+          }catch(e){}
+          try{
+            // directly hide the overlay to avoid depending on CSS rules
+            var overlay = document.querySelector('.entrance-overlay');
+            if(overlay){ overlay.style.transition = 'opacity 300ms ease'; overlay.style.opacity = '0'; overlay.style.visibility = 'hidden'; overlay.style.pointerEvents = 'none'; }
+          }catch(e){}
+        };
         img.onload = finish; img.onerror = finish;
         img.src = src;
         // reveal quickly so the hero is visible even if image load is slow
         setTimeout(finish, 200);
       })();
     </script>
-  </body>
-</html>
+  <script src="runtime.js" type="module"></script><script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script>
+
+</body></html>
